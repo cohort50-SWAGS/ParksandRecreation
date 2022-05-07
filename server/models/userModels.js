@@ -13,15 +13,17 @@ mongoose.connect(mongoURI, {
 .catch(err => console.log(err));
 
 
-const SALT_WORK_FACTOR = 10;
-const bcrypt = require('bcrypt')
+// const SALT_WORK_FACTOR = 10;
+// const bcrypt = require('bcrypt')
 
 
 const userSchema = new Schema ({
-    userID: Number,
-    username: {type: String, required: true, unique: true},
-    password: {type: String, required: true},
-    trips: []
+    // _id: Number,
+    // username: {type: String, required: true, unique: true},
+    username: String,
+    // password: {type: String, required: true},
+    password: String,
+  
 })
 
 

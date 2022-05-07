@@ -9,20 +9,22 @@ const salt = 10;
 //  controller for requests for Mongo database 
 const dbController = {};
 //  controller for post requests to logIn
-dbController.logIn = async (err, req, res, next) => {
+dbController.logIn = (req, res, next) => {
   //  declare consts username and password set as req.body
-  const {username, password} = req.body;
+  const { username } = req.body;
   //  query Database for username and password
-  User.findOne({username}), (err, user) => {
+  User.find({ username: username}, function (err, user) {
       //  declare User set as the user returned from the db  
       //  using the bcrypt compare method see if inputted password matches saved password for username
-    console.log('user', user)
-
-}
+    if (err) return next({err}) 
+    res.locals.user = user;
+    return next();
+});
     //  if password matches set res.locals.user to User 
     //  return next
-
 }
+
+
 //  controller for post requests to add for creating new user
 dbController.add = async (err, req, res, next) => {
   //  declare consts username and password set as req.body
