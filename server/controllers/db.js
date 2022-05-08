@@ -11,9 +11,10 @@ const dbController = {};
 //  controller for post requests to logIn
 dbController.logIn = (req, res, next) => {
   //  declare consts username and password set as req.body
-  const { username } = req.body;
+  // const {username, password} = req.body;
+  const name = req.body.username;
   //  query Database for username and password
-  User.find({ username: username}, function (err, user) {
+  User.findOne({name}, function (err, user) {
       //  declare User set as the user returned from the db  
       //  using the bcrypt compare method see if inputted password matches saved password for username
     if (err) return next({err}) 
