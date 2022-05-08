@@ -1,35 +1,17 @@
-import React, { Component } from 'react';
+import React, {useState, Component} from 'react';
 import ReactDOM from 'react-dom';
-import { Navigate, useNavigate } from 'react-router-dom';
-// import { Navigate } from 'react-router-dom';
-
-// basic login RENDER CHECK
-// class Login extends Component {
-//   render() { 
-//   return(<h3>login component</h3>)
-//   }
-// }
-
-// selecting the values of the Username and Password from Document
-const username = document.querySelector('#Username').value;
-const password = document.querySelector('#Password').value;
+import { Navigate, useNavigate, Link, withRouter } from 'react-router-dom';
 
 // component for the whole login page
-class Login extends Component  {
-  constructor(props) {
-    super (props);
-    this.state = {
-      verified : false,
-      userSaves: [],
-    };
-  }
-
-  componentDidMount() {
-
-  }
+const Login = () => {
+  const [value, setValue] = useState({
+    verified : false,
+    tripsArray: [],
+  });
 
   // function activated when user clicks "create user"
-  createUser() {
+  const createUser = () => {
+    console.log('test createUser Button')
     let navigate = useNavigate();
     fetch('/db/add', {
       method: 'POST',
@@ -37,49 +19,51 @@ class Login extends Component  {
         'Content-Type': 'Application/JSON',
       },
       body: JSON.stringify({
-        username,
-        password,
+        username: document.querySelector('#Username').value,
+        password: document.querySelector('#Password').value,
       })
     })
         .then((res) => res.json())
         .then((data) => {
           if (data.verified === true) {
-            if (!Array.isArray(data.userSaves)) userSaves = [];
-            this.setState({verified:true, userSaves: data.userSaves})
-            Navigate("/main", { state: {verified: this.state.verified, userSaves: this.state.userSaves}});
+            if (!Array.isArray(data.tripsArray)) userSaves = [];
+            setValue({verified:true, tripsArray: data.tripsArray})
+            navigate("/main", { state: {verified: this.state.verified, tripsArray: this.state.tripsArray}});
           }
         })
-        .then(console.log('testing createUser in Login successful'))
         .catch((err) =>
           console.log('Login Page: createUser: ERROR: ', err)
       );
   };
 
-  loginUser() {
-    fetch('/db/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'Application/JSON',
-      },
-      body: JSON.stringify({
-        username,
-        password,
-      }),
-    })
-    .then((res) => res.json())
-    .then((data) => {
-      if (data.verified === true) {
-        <Navigate to={'/main'}/>
-      }   
-    })
-    .then(console.log("Testing loginUser in Login"))
-    .catch((err) => {
-      console.log('Login page: user not found', err)
-    })
-
+  const loginUser = () => {
+    setValue({verified:true, tripsArray: [{'hello': 'test'}]})
+    navigate("/main", { state: {verified: this.state.verified, tripsArray: this.state.tripsArray}});
+    // console.log('test loginUser Button')
+    // let navigate = useNavigate();
+    // fetch('/db/login', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'Application/JSON',
+    //   },
+    //   body: JSON.stringify({
+    //     username: document.querySelector('#Username').value,
+    //     password: document.querySelector('#Password').value,
+    //   })
+    // })
+    // .then((res) => res.json())
+    // .then((data) => {
+    //     if (data.verified === true) {
+    //       if (!Array.isArray(data.tripsArray)) userSaves = [];
+    //       setValue({verified:true, tripsArray: data.tripsArray})
+    //       navigate("/main", { state: {verified: this.state.verified, tripsArray: this.state.tripsArray}});
+    //     }
+    //   })
+    // .catch((err) => {
+    //   console.log('Login page: user not found', err)
+    // })
   };
 
-  render() {
   return (
     <section className="loginSection">
       <header className="pageHeader">
@@ -112,28 +96,35 @@ class Login extends Component  {
 
         {/* // submit and create user buttons */}
         <div className="ButtonContainer">
-          <input
-            id="CreateUser"
-            type="submit"
+          <button
+            type="button"
             value="CreateUser"
-            onClick={createUser}
+            onClick={Login.createUser}
           >
             Create Account
-          </input>
+          </button>
 
-          <input
-            id="LoginUser"
+          <button
             type="submit"
             value="LoginUser"
-            onClick={loginUser}
+            onClick={Login.loginUser}
           >
             Login
-          </input>
+          </button>
         </div>
       </article>
     </section>
   );
-  }
 }
 
 export default Login;
+
+
+
+
+// basic login RENDER CHECK
+// class Login extends Component {
+//   render() { 
+//   return(<h3>login component</h3>)
+//   }
+// }
