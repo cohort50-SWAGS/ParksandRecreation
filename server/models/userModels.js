@@ -19,10 +19,9 @@ mongoose.connect(mongoURI, {
 
 const userSchema = new Schema ({
     // _id: Number,
-    // username: {type: String, required: true, unique: true},
-    username: String,
-    // password: {type: String, required: true},
-    password: String,
+    username: {type: String, required: true, unique: true},
+    password: {type: String, required: true},
+    trips: Array
   
 })
 

@@ -14,16 +14,18 @@ app.get('/', (req, res) => {
 
 app.use(express.static(__dirname + '/../dist'));
 
-app.get('/db/login', dbController.logIn, (req, res) => {
-    res.status(200).json(res.locals.user)
-});
+// app.get('/db/login', dbController.logIn, (req, res) => {
+//     res.status(200).json(res.locals.user)
+// });
 
-app.post('/db/login', dbController.logIn, (req, res) => {
-    res.status(200).json(res.locals.user)
+app.post('/db/login', dbController.logIn, 
+    dbController.verify,
+    (req, res) => {
+    res.status(200).json(res.locals.response)
 })
 
 app.post('/db/add', dbController.add, (req, res) => {
-    res.status(200).json(res.locals.user)
+    res.status(200).json(res.locals.newUser)
 })
 
 app.use('*', (req,res) => {
