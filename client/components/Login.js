@@ -1,17 +1,36 @@
-// after lunch: complete fetch requests of what we want to do when we get the data back from our internal server(our backend) -
-// likely going to route to our main page if success
-// maybe an alert if the username/password wasn't valid and prompt to create an account?
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
+// import { Navigate } from 'react-router-dom';
 
-import React from 'react';
+// basic login RENDER CHECK
+// class Login extends Component {
+//   render() { 
+//   return(<h3>login component</h3>)
+//   }
+// }
 
 // selecting the values of the Username and Password from Document
 const username = document.querySelector('#Username').value;
 const password = document.querySelector('#Password').value;
 
 // component for the whole login page
-function Login() {
+class Login extends Component  {
+  constructor(props) {
+    super (props);
+    this.state = {
+      verified : false,
+      userSaves: [],
+    };
+  }
+
+  componentDidMount() {
+
+  }
+
   // function activated when user clicks "create user"
-  const createUser = () => {
+  createUser() {
+    let navigate = useNavigate();
     fetch('/db/add', {
       method: 'POST',
       headers: {
@@ -21,14 +40,22 @@ function Login() {
         username,
         password,
       })
-    }).then(
-      if (res.locals.verified === true)
-      <route exact /main
-      )
+    })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.verified === true) {
+            if (!Array.isArray(data.userSaves)) userSaves = [];
+            this.setState({verified:true, userSaves: data.userSaves})
+            Navigate("/main", { state: {verified: this.state.verified, userSaves: this.state.userSaves}});
+          }
+        })
+        .then(console.log('testing createUser in Login successful'))
+        .catch((err) =>
+          console.log('Login Page: createUser: ERROR: ', err)
+      );
   };
 
-  // function activated when user clicks "Login"
-  const loginUser = () => {
+  loginUser() {
     fetch('/db/login', {
       method: 'POST',
       headers: {
@@ -38,9 +65,21 @@ function Login() {
         username,
         password,
       }),
-    });
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.verified === true) {
+        <Navigate to={'/main'}/>
+      }   
+    })
+    .then(console.log("Testing loginUser in Login"))
+    .catch((err) => {
+      console.log('Login page: user not found', err)
+    })
+
   };
 
+  render() {
   return (
     <section className="loginSection">
       <header className="pageHeader">
@@ -94,6 +133,7 @@ function Login() {
       </article>
     </section>
   );
+  }
 }
 
 export default Login;

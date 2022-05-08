@@ -1,25 +1,30 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 // {Routes, Route} for version 6
-import { Switch, Route } from 'react-router-dom';
-import Login from './Login';
-// import AddBook from './AddBook';
+import { BrowserRouter as Routes, Route } from 'react-router-dom';
+import Login from './Login.js';
+// import Main from './Main.js';
 
+// uncomment once we build out style sheets
 // import '../stylesheets/styles.css';
+
+// basic App RENDER CHECK with Login (Working)
 // class App extends Component {
-//   render() {
-//     return <h1>Header from React</h1>;
+//   render() { 
+//   return(<Login/>)
 //   }
 // }
+
 const App = (props) => {
   return (
     <div className="router">
       <main>
         <h1>Parks and Rec</h1>
-        <Switch>
-          <Route exact path="/" component={Main} />
+        <Routes>
+          <Route exact path="/" component={Login} />
+          {/* <Route exact path="/main" component={Main} /> */}
           {/* <Route exact path="/add" component={AddBook} /> */}
-        </Switch>
+        </Routes>
       </main>
     </div>
   );

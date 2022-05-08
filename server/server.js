@@ -5,7 +5,6 @@ const mongoose = require('mongoose'); // framework for the backend
 const dbController = require('./controllers/db.js') // 
 
 
-
 app.post('/db/login', dbController.logIn, (req, res) => {
     res.status(200).json(res.locals.user)
 })
