@@ -1,18 +1,18 @@
-import React, {useState, Component} from 'react';
+import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
-import { Navigate, useNavigate, Link, withRouter } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate, Link, withRouter } from 'react-router-dom';
+import Main from './Main.js';
 
 // component for the whole login page
-const Login = () => {
-  const [value, setValue] = useState({
-    verified : false,
-    tripsArray: [],
-  });
+function Login(props) {
+
+  // establish our state
+  const [verified, setVerified] = useState(false);
+  const [userTrips, setUserTrips] = useState([]);
 
   // function activated when user clicks "create user"
-  const createUser = () => {
-    console.log('test createUser Button')
-    let navigate = useNavigate();
+  function createUser() {
+
     fetch('/db/add', {
       method: 'POST',
       headers: {
@@ -23,49 +23,50 @@ const Login = () => {
         password: document.querySelector('#Password').value,
       })
     })
-        .then((res) => res.json())
+        .then((resp) => resp.json())
         .then((data) => {
-          if (data.verified === true) {
-            if (!Array.isArray(data.tripsArray)) userSaves = [];
-            setValue({verified:true, tripsArray: data.tripsArray})
-            navigate("/main", { state: {verified: this.state.verified, tripsArray: this.state.tripsArray}});
-          }
-        })
+      // update our state with the hooks we defined earlier
+          setVerified(data.verified);
+          // setUserTrips(data.tripsArray);
+      })
         .catch((err) =>
           console.log('Login Page: createUser: ERROR: ', err)
-      );
+    );
   };
 
-  const loginUser = () => {
-    setValue({verified:true, tripsArray: [{'hello': 'test'}]})
-    navigate("/main", { state: {verified: this.state.verified, tripsArray: this.state.tripsArray}});
-    // console.log('test loginUser Button')
-    // let navigate = useNavigate();
-    // fetch('/db/login', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'Application/JSON',
-    //   },
-    //   body: JSON.stringify({
-    //     username: document.querySelector('#Username').value,
-    //     password: document.querySelector('#Password').value,
-    //   })
-    // })
-    // .then((res) => res.json())
-    // .then((data) => {
-    //     if (data.verified === true) {
-    //       if (!Array.isArray(data.tripsArray)) userSaves = [];
-    //       setValue({verified:true, tripsArray: data.tripsArray})
-    //       navigate("/main", { state: {verified: this.state.verified, tripsArray: this.state.tripsArray}});
-    //     }
-    //   })
-    // .catch((err) => {
-    //   console.log('Login page: user not found', err)
-    // })
+  function loginUser() {
+// query our databse to see if their username and password is correct
+    fetch('/db/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'Application/JSON',
+      },
+      body: JSON.stringify({
+        username: document.querySelector('#Username').value,
+        password: document.querySelector('#Password').value,
+      })
+    })
+    .then((resp) => resp.json())
+    .then((data) => {
+      // update our state with the hooks we defined earlier
+          setVerified(data.verified);
+          setUserTrips(data.tripsArray);
+      })
+    .catch((err) => {
+      console.log('Login page: user not found', err)
+      })
   };
+
+  // declare navigate so we can use it as a hook in useEffect
+  const navigate = useNavigate();
+    useEffect(() => {
+      const goToMainPage = () => navigate(('/main'), { verified, userTrips });
+      if (verified === true){ goToMainPage()}
+    }, [verified]);
 
   return (
     <section className="loginSection">
+      
       <header className="pageHeader">
         <h2>Welcome to Parks and Rec!</h2>
       </header>
@@ -93,13 +94,14 @@ const Login = () => {
             placeholder="password"
           ></input>
         </div>
-
+     
         {/* // submit and create user buttons */}
         <div className="ButtonContainer">
+           {/* <Route to {'/main'}> */}
           <button
             type="button"
             value="CreateUser"
-            onClick={Login.createUser}
+            onClick={createUser}
           >
             Create Account
           </button>
@@ -107,11 +109,12 @@ const Login = () => {
           <button
             type="submit"
             value="LoginUser"
-            onClick={Login.loginUser}
+            onClick={loginUser}
           >
             Login
           </button>
-        </div>
+             {/* </Routes> */}
+          </div>
       </article>
     </section>
   );

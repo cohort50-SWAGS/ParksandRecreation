@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from './Login.js';
 import Main from './Main.js';
@@ -19,12 +19,12 @@ const App = (props) => {
     <div className="router">
       <main>
         <h1>Parks and Rec App.jsx </h1>
-        <Router>
+        {/* <Router> */}
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/main" element={<Main />} />
           </Routes>
-        </Router>
+        {/* </Router> */}
       </main>
     </div>
   );
