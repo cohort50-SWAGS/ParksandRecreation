@@ -35,7 +35,7 @@ dbController.verify = (req, res, next) => {
   // console.log("res locals user:", res.locals.user)
   const password = req.body.password;
   const hashPass = res.locals.user.password;
-  console.log(password, hashPass)
+  //console.log(password, hashPass)
   bcrypt.compare (password, hashPass, function (err, result) {
     if (err) return next({err});
     // console.log("result:", result);
@@ -69,7 +69,7 @@ dbController.add = (req, res, next) => {
         // console.log(hash);
         if (err) return next({err});
         //  set res.locals.user to the new dbModel
-        res.locals.newUser = newUser; 
+        res.locals.user = newUser; 
         return next() 
       });
     });
