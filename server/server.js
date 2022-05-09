@@ -2,7 +2,8 @@ const express = require('express'); // backend web application framework for Nod
 const app = express(); // creates an express application
 const PORT = 3000; // defining the port number for later use with express' listen module
 const mongoose = require('mongoose'); // framework for the backend
-const dbController = require('./controllers/db.js') // 
+const dbController = require('./controllers/db.js'); // 
+const apiController = require('./controllers/api.js');
 const path = require('path');
 
 app.use(express.json());
@@ -22,11 +23,21 @@ app.post('/db/login', dbController.logIn,
     dbController.verify,
     (req, res) => {
     res.status(200).json(res.locals.response)
-})
+});
 
-app.post('/db/add', dbController.add, (req, res) => {
-    res.status(200).json(res.locals.newUser)
-})
+app.post('/db/add', dbController.add, 
+    dbController.verify,
+    (req, res) => {
+    res.status(200).json(res.locals.response)
+});
+
+app.post('/db/api/getlocation',
+    apiController.getByLocation,
+    apiController.getRecAreaByID,
+    (req, res) => {
+        res.status(200).json(res.locals.recAreas)
+    }
+)
 
 app.use('*', (req,res) => {
     res.status(404).send('Not Found');
