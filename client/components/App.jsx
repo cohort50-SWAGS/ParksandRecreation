@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-// {Routes, Route} for version 6
-import { BrowserRouter as Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from './Login.js';
-// import Main from './Main.js';
+import Main from './Main.js';
 
 // uncomment once we build out style sheets
 // import '../stylesheets/styles.css';
@@ -19,16 +18,18 @@ const App = (props) => {
   return (
     <div className="router">
       <main>
-        <h1>Parks and Rec</h1>
-        <Routes>
-          <Route exact path="/" component={Login} />
-          {/* <Route exact path="/main" component={Main} /> */}
-          {/* <Route exact path="/add" component={AddBook} /> */}
-        </Routes>
+        <h1>Parks and Rec App.jsx </h1>
+        {/* <Router> */}
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/main" element={<Main />} />
+          </Routes>
+        {/* </Router> */}
       </main>
     </div>
   );
 };
 
 export default App;
+
       

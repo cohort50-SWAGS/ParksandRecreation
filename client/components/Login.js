@@ -1,87 +1,72 @@
-import React, { Component } from 'react';
+import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
-import { Navigate, useNavigate } from 'react-router-dom';
-// import { Navigate } from 'react-router-dom';
-
-// basic login RENDER CHECK
-// class Login extends Component {
-//   render() { 
-//   return(<h3>login component</h3>)
-//   }
-// }
-
-// selecting the values of the Username and Password from Document
-const username = document.querySelector('#Username').value;
-const password = document.querySelector('#Password').value;
+import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate, Link, withRouter } from 'react-router-dom';
+import Main from './Main.js';
 
 // component for the whole login page
-class Login extends Component  {
-  constructor(props) {
-    super (props);
-    this.state = {
-      verified : false,
-      userSaves: [],
-    };
-  }
+function Login(props) {
 
-  componentDidMount() {
-
-  }
+  // establish our state
+  const [verified, setVerified] = useState(false);
+  const [userTrips, setUserTrips] = useState([]);
 
   // function activated when user clicks "create user"
-  createUser() {
-    let navigate = useNavigate();
+  function createUser() {
+
     fetch('/db/add', {
       method: 'POST',
       headers: {
         'Content-Type': 'Application/JSON',
       },
       body: JSON.stringify({
-        username,
-        password,
+        username: document.querySelector('#Username').value,
+        password: document.querySelector('#Password').value,
       })
     })
-        .then((res) => res.json())
+        .then((resp) => resp.json())
         .then((data) => {
-          if (data.verified === true) {
-            if (!Array.isArray(data.userSaves)) userSaves = [];
-            this.setState({verified:true, userSaves: data.userSaves})
-            Navigate("/main", { state: {verified: this.state.verified, userSaves: this.state.userSaves}});
-          }
-        })
-        .then(console.log('testing createUser in Login successful'))
+      // update our state with the hooks we defined earlier
+          setVerified(data.verified);
+          // setUserTrips(data.tripsArray);
+      })
         .catch((err) =>
           console.log('Login Page: createUser: ERROR: ', err)
-      );
+    );
   };
 
-  loginUser() {
+  function loginUser() {
+// query our databse to see if their username and password is correct
     fetch('/db/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'Application/JSON',
       },
       body: JSON.stringify({
-        username,
-        password,
-      }),
+        username: document.querySelector('#Username').value,
+        password: document.querySelector('#Password').value,
+      })
     })
-    .then((res) => res.json())
+    .then((resp) => resp.json())
     .then((data) => {
-      if (data.verified === true) {
-        <Navigate to={'/main'}/>
-      }   
-    })
-    .then(console.log("Testing loginUser in Login"))
+      // update our state with the hooks we defined earlier
+          setVerified(data.verified);
+          setUserTrips(data.tripsArray);
+      })
     .catch((err) => {
       console.log('Login page: user not found', err)
-    })
-
+      })
   };
 
-  render() {
+  // declare navigate so we can use it as a hook in useEffect
+  const navigate = useNavigate();
+    useEffect(() => {
+      const goToMainPage = () => navigate(('/main'), { verified, userTrips });
+      if (verified === true){ goToMainPage()}
+    }, [verified]);
+
   return (
     <section className="loginSection">
+      
       <header className="pageHeader">
         <h2>Welcome to Parks and Rec!</h2>
       </header>
@@ -109,31 +94,40 @@ class Login extends Component  {
             placeholder="password"
           ></input>
         </div>
-
+     
         {/* // submit and create user buttons */}
         <div className="ButtonContainer">
-          <input
-            id="CreateUser"
-            type="submit"
+           {/* <Route to {'/main'}> */}
+          <button
+            type="button"
             value="CreateUser"
             onClick={createUser}
           >
             Create Account
-          </input>
+          </button>
 
-          <input
-            id="LoginUser"
+          <button
             type="submit"
             value="LoginUser"
             onClick={loginUser}
           >
             Login
-          </input>
-        </div>
+          </button>
+             {/* </Routes> */}
+          </div>
       </article>
     </section>
   );
-  }
 }
 
 export default Login;
+
+
+
+
+// basic login RENDER CHECK
+// class Login extends Component {
+//   render() { 
+//   return(<h3>login component</h3>)
+//   }
+// }
