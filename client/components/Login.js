@@ -27,7 +27,6 @@ function Login(props) {
         .then((data) => {
       // update our state with the hooks we defined earlier
           setVerified(data.verified);
-          // setUserTrips(data.tripsArray);
       })
         .catch((err) =>
           console.log('Login Page: createUser: ERROR: ', err)
@@ -49,18 +48,20 @@ function Login(props) {
     .then((resp) => resp.json())
     .then((data) => {
       // update our state with the hooks we defined earlier
-          setVerified(data.verified);
-          setUserTrips(data.tripsArray);
+      setUserTrips(data.tripsArray)    
+      setVerified(data.verified)
       })
     .catch((err) => {
       console.log('Login page: user not found', err)
       })
   };
 
+  console.log('login page  ', verified, userTrips)
+
   // declare navigate so we can use it as a hook in useEffect
   const navigate = useNavigate();
     useEffect(() => {
-      const goToMainPage = () => navigate(('/main'), { verified, userTrips });
+      const goToMainPage = () => navigate(('/main'), {state: { verified, userTrips }});
       if (verified === true){ goToMainPage()}
     }, [verified]);
 
@@ -97,7 +98,6 @@ function Login(props) {
      
         {/* // submit and create user buttons */}
         <div className="ButtonContainer">
-           {/* <Route to {'/main'}> */}
           <button
             type="button"
             value="CreateUser"
@@ -113,7 +113,6 @@ function Login(props) {
           >
             Login
           </button>
-             {/* </Routes> */}
           </div>
       </article>
     </section>
@@ -121,13 +120,3 @@ function Login(props) {
 }
 
 export default Login;
-
-
-
-
-// basic login RENDER CHECK
-// class Login extends Component {
-//   render() { 
-//   return(<h3>login component</h3>)
-//   }
-// }
