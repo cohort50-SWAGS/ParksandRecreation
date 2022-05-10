@@ -5,7 +5,6 @@ const TripCard = ({ info, userTrips, username }) => {
     const { recAreaName, recAreaDescription, recAreaFee, recAreaDirections } = info;
     
     const addToUserTrips = ({ info, userTrips, username }) => {
-    // WE NEED ROUTES TO MATCH
     fetch('db/addtrip', {
       method: 'POST',
       headers: {

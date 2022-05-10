@@ -72,37 +72,52 @@ body {
 /* each trip card*/
 .eachTrip {
   color: black;
+  display: flex;
   background: white;
   padding: 2rem;
-  margin: 30px;
+    /* display: flex; */
+      flex-direction: column;
+      justify-content: flex-start;
+  /* margin: 30px;
+  margin-top: 80px;
+  margin-bottom: 80px; */
+  margin: 0.5rem;
   border: 1px solid lightgray;
   box-shadow: 1px 1px 5px rgba(22, 22, 22, 0.915);
 }
 /*this holds all the cards */
+
 .tripCardContainer {
   display: flex;
-  flex-direction: row;
+  flex-direction:row;
+  flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
+  /* align-items: center; */
   background-color: transparent;
   width: 800px;
   color: black;
-  margin: 0px;
+  margin: 40px;
+  margin-top: 50px;
+  margin-bottom: 50px;
   height: 120px;
 }
+.tripLocationContainer{
 
+}
 .TripList {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   /* align-items: center; */
 }
-/* .router{
+.router{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     align-content: center;
-} */
+}
 .mainSection {
   display: flex;
   flex-direction: column;

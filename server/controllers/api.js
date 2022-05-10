@@ -2,8 +2,10 @@
 const axios = require('axios').default;
 // import fetch from 'node-fetch';
 
-// APIkey = d7093dcf-3639-48da-93b7-24ba26963235
 // Link to Recreation.gov API: https://ridb.recreation.gov/docs
+// You will need register an account to enable the apikey
+// create an account and go to your profile to enable the apikey
+// use apikey in header fro fetch requests
 
 
 // QUERY CHAIN
@@ -25,7 +27,7 @@ apiController.getByLocation = (req, res, next) => {
     method: 'GET',
     headers: {
       'accept': 'application/json',
-      "apikey" : 'd7093dcf-3639-48da-93b7-24ba26963235'
+      "apikey" : 'apkikeyhere'
     }
   })
   .then (result => {
@@ -64,7 +66,7 @@ apiController.getRecAreaByID = async (req, res, next) => {
       method: 'GET',
       headers: {
         'accept': 'application/json',
-        "apikey" : 'd7093dcf-3639-48da-93b7-24ba26963235'
+        "apikey" : 'apikeyhere'
       }
     })
     // .then (result => // console.log("result.data:", result.data)
