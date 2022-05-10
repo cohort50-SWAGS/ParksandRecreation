@@ -8,7 +8,7 @@ function Main() {
   
   function searchData() {
        // WHAT IS THEIR ROUTE??
-    fetch('/db/api', {
+    fetch('/db/api/getlocation', {
       method: 'POST',
       headers: {
         'Content-Type': 'Application/JSON',
@@ -19,6 +19,7 @@ function Main() {
     })
     .then((resp) => resp.json())
     .then((data) => {
+      console.log(data)
       // setting our response to a variable outside of fetch request so we can use it later to iterate and generate cards
       // if (!Array.isArray(data)) {
       //   searchResults = [];
@@ -38,16 +39,20 @@ function Main() {
   //     </div>
   //   );
 
+  const location = useLocation();
+  
   const searchResultsEl = searchResults.map((eachResult, i) => {
-    return (
+   return (
       <TripCard
         key={i}
         info={eachResult}
+        userTrips={location.state.userTrips}
+        username={location.state.username}
       />
     );
   });
 
-  const location = useLocation();
+
 // user saved trips
   //  console.log('main page state ', location.state);
   if (!location.state.userTrips.length)
