@@ -1,0 +1,138 @@
+body {
+  display: flexbox;
+  background-image: url(./yosemite_bg.jpeg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* background-color: #1c1f2e; */
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.loginSection {
+  background-color: #caceb5;
+  color: #1c1f2e;
+  margin: 0px 300px;
+  text-align: center;
+  justify-content: center;
+  height: 400px;
+  width: 500px;
+  border: 50px solid #2f3543;
+}
+
+.loginSection h2 {
+  font-size: 2.2rem;
+  background: transparent;
+}
+
+.loginSection button {
+  background: white;
+  color: black;
+  text-align: center;
+  height: 30px;
+  width: 200px;
+  margin: 20px;
+  border: none;
+}
+
+.loginSection .input {
+  font-size: 1.5rem;
+}
+
+.loginSection input {
+  height: 30px;
+  width: 350px;
+  border: none;
+}
+
+.searchHeader {
+  background-color: #caceb5;
+  color: #1c1f2e;
+  margin: 0px 300px;
+  text-align: center;
+  justify-content: center;
+  height: 100px;
+  width: 800px;
+  border: 10px solid rgba(0, 0, 0, 0.5);
+}
+
+.searchHeader input {
+  height: 30px;
+  width: 350px;
+  border: none;
+}
+
+.loginSection input {
+  height: 30px;
+  width: 350px;
+  margin: 5px;
+}
+/* each trip card*/
+.eachTrip {
+  color: black;
+  display: flex;
+  background: white;
+  padding: 2rem;
+    /* display: flex; */
+      flex-direction: column;
+      justify-content: flex-start;
+  /* margin: 30px;
+  margin-top: 80px;
+  margin-bottom: 80px; */
+  margin: 0.5rem;
+  border: 1px solid lightgray;
+  box-shadow: 1px 1px 5px rgba(22, 22, 22, 0.915);
+}
+/*this holds all the cards */
+
+.tripCardContainer {
+  display: flex;
+  flex-direction:row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  /* align-items: center; */
+  background-color: transparent;
+  width: 800px;
+  color: black;
+  margin: 40px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  height: 120px;
+}
+.tripLocationContainer{
+
+}
+.TripList {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  /* align-items: center; */
+}
+.router{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+.mainSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+.inputField {
+  margin-right: 50px;
+  margin-bottom: 10px;
+}
+
+#SearchBarCity,
+#SearchBarState {
+  width: 200px;
+  border-radius: 1em;
+}
