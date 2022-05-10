@@ -5,7 +5,10 @@ function Error() {
   
 
   return (
+      <div>
         <h1>DON'T BE SUSPICIOUS</h1>
+        {/* iteration team please add gif */}
+     </div>
   );
 }
 

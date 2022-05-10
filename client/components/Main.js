@@ -48,14 +48,6 @@ function Main() {
 
     console.log('tripCardsearch outside useEffect ', tripCardsSearch)
 
-// user saved trips
-  //  console.log('main page state ', location.state);
-  if (!location.state.userTrips.length)
-    return (
-      <div>
-        <h2>You Have Not Saved Anything Yet.</h2>
-      </div>
-    );
 
   const tripsArrayEl = location.state.userTrips.map((eachSave, i) => {
     return (
@@ -85,6 +77,7 @@ function Main() {
           </button>
       </header>
       <div className='searchResultsContainer'>{searchResultsEl}</div>
+      <p></p>
       <div className='tripCardContainer'>{tripsArrayEl}</div>
     </section>
   );
