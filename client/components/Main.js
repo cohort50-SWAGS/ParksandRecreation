@@ -3,8 +3,7 @@ import { Redirect, useLocation } from 'react-router-dom';
 import TripCard from './TripCard'
 
 function Main() {
-    
-  let searchResults = [];
+  const [searchResults, setSearchResults] = useState([]);
   
   function searchData() {
        // WHAT IS THEIR ROUTE??
@@ -18,31 +17,25 @@ function Main() {
       })
     })
     .then((resp) => resp.json())
-    .then((data) => {
-      console.log(data)
+      .then((data) => {
+        console.log(data);
+        setSearchResults(data)
+    })
       // setting our response to a variable outside of fetch request so we can use it later to iterate and generate cards
-      // if (!Array.isArray(data)) {
-      //   searchResults = [];
-      // } else {
-        searchResults = data;
-      // }
-      })
     .catch((err) => {
       console.log('Login page: user not found', err)
       })
   };
 
-  // if (!searchResults.length)
-  //   return (
-  //     <div>
-  //       <h2>Start Your Search!</h2>
-  //     </div>
-  //   );
+  console.log('searchResults outside of promisechain', searchResults)
 
+  let tripCardsSearch;
   const location = useLocation();
+
+  //useEffect = useless (don't even try it here, you'll be disappointed)
   
   const searchResultsEl = searchResults.map((eachResult, i) => {
-   return (
+    return (
       <TripCard
         key={i}
         info={eachResult}
@@ -52,6 +45,8 @@ function Main() {
     );
   });
 
+
+    console.log('tripCardsearch outside useEffect ', tripCardsSearch)
 
 // user saved trips
   //  console.log('main page state ', location.state);
