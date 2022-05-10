@@ -31,6 +31,13 @@ app.post('/db/add', dbController.add,
     res.status(200).json(res.locals.response)
 });
 
+app.post('/db/addtrip', dbController.addTrip,
+    dbController.logIn,
+    (req, res) => {
+        res.status(200).json(res.locals.user.trips)
+    }
+)
+
 app.post('/db/api/getlocation',
     apiController.getByLocation,
     apiController.getRecAreaByID,
