@@ -7,8 +7,9 @@ import Main from './Main.js';
 function Login(props) {
 
   // establish our state
-  const [verified, setVerified] = useState(false);
+  const [verified, setVerified] = useState();
   const [userTrips, setUserTrips] = useState([]);
+  const [username, setUsername] = useState('default');
 
   // function activated when user clicks "create user"
   function createUser() {
@@ -26,7 +27,9 @@ function Login(props) {
         .then((resp) => resp.json())
         .then((data) => {
       // update our state with the hooks we defined earlier
-          setVerified(data.verified);
+      setUserTrips(data.tripsArray)    
+      setUsername(document.querySelector('#Username').value)
+      setVerified(data.verified)
       })
         .catch((err) =>
           console.log('Login Page: createUser: ERROR: ', err)
@@ -48,8 +51,9 @@ function Login(props) {
     .then((resp) => resp.json())
     .then((data) => {
       // update our state with the hooks we defined earlier
-      setUserTrips(data.tripsArray)    
-      setVerified(data.verified)
+      setUserTrips(data.tripsArray);
+      setUsername(document.querySelector('#Username').value);
+      setVerified(data.verified);
       })
     .catch((err) => {
       console.log('Login page: user not found', err)
@@ -61,8 +65,10 @@ function Login(props) {
   // declare navigate so we can use it as a hook in useEffect
   const navigate = useNavigate();
     useEffect(() => {
-      const goToMainPage = () => navigate(('/main'), {state: { verified, userTrips }});
+      const goToMainPage = () => navigate(('/main'), {state: { verified, userTrips, username}});
+      const goToError = () => navigate(('/error'));
       if (verified === true){ goToMainPage()}
+      if (verified === false){ goToError()}
     }, [verified]);
 
   return (
