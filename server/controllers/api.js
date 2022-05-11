@@ -17,6 +17,7 @@ const apiController = {};
     // Headers:
         // accept: application/json
         // apikey: d7093dcf-3639-48da-93b7-24ba26963235
+const apiKey = 'a83c6bff-4a84-4a8e-8d57-2bbfdf432598';
 
 apiController.getByLocation = (req, res, next) => {
   const place = req.body.location // EX -> Los Angeles -> los%20angeles
@@ -27,7 +28,7 @@ apiController.getByLocation = (req, res, next) => {
     method: 'GET',
     headers: {
       'accept': 'application/json',
-      "apikey" : 'apkikeyhere'
+      "apikey" : 'a83c6bff-4a84-4a8e-8d57-2bbfdf432598'
     }
   })
   .then (result => {
@@ -66,7 +67,7 @@ apiController.getRecAreaByID = async (req, res, next) => {
       method: 'GET',
       headers: {
         'accept': 'application/json',
-        "apikey" : 'apikeyhere'
+        "apikey" : 'a83c6bff-4a84-4a8e-8d57-2bbfdf432598'
       }
     })
     // .then (result => // console.log("result.data:", result.data)
