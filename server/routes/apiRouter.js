@@ -11,4 +11,7 @@ router.post('/getlocation',
     }
 );
 
+router.post('/getCity', apiController.getCityName, (req, res) => {
+    res.status(200).json(res.locals.location)
+})
 module.exports = router;
