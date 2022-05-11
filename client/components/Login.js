@@ -4,8 +4,10 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate, Link, withRouter } from 'react-router-dom';
 import Main from './Main.js';
 
+
 // component for the whole login page
 function Login(props) {
+  let navigate = useNavigate();
 
   // establish our state
   // Move this State into Top Level 
@@ -19,31 +21,23 @@ function Login(props) {
 
     fetch('/addUser', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'Application/JSON',
-      },
+      headers: { 'Content-Type': 'Application/JSON'},
       body: JSON.stringify({
         username: document.querySelector('#Username').value,
         password: document.querySelector('#Password').value,
       })
     })
-        .then((resp) => resp.json())
-        .then((data) => {
-          console.log('Create User Response', data)
-      // update our state with the hooks we defined earlier
-      setUserTrips(data.tripsArray)    
-      setUsername(document.querySelector('#Username').value)
-      setVerified(data.verified)
-      window.localStorage.setItem('username', document.querySelector('#Username').value)
-      })
-        .catch((err) =>
-          console.log('Login Page: createUser: ERROR: ')
-          // console.log('Login Page: createUser: ERROR: ', err.message)
-    );
+    .then((response) => response.json())
+    .then((data) => { 
+      if (data.verified === true) {
+        window.localStorage.setItem('username', document.querySelector('#Username').value)
+        navigate('/main/searchTrips')
+      }
+    })
+    .catch(err => alert('Error creating user'));
   };
 
   function loginUser() {
-// query our databse to see if their username and password is correct
     fetch('/login', {
       method: 'POST',
       headers: {
@@ -54,32 +48,27 @@ function Login(props) {
         password: document.querySelector('#Password').value,
       })
     })
-    .then((resp) => resp.json())
+    .then((response) => response.json())
     .then((data) => {
-      console.log('Login User Response', data)
-      // update our state with the hooks we defined earlier
-      setUserTrips(data.tripsArray);
-      setUsername(document.querySelector('#Username').value);
-      setVerified(data.verified);
-
-      // Set Username in Local Storage
-      window.localStorage.setItem('username', document.querySelector('#Username').value)
-      })
+      if (data.verified === true) {
+        window.localStorage.setItem('username', document.querySelector('#Username').value)
+        navigate('/main/searchTrips')
+      }
+    })
     .catch((err) => {
       console.log('Login page: user not found', err)
       })
   };
 
-  console.log('login page  ', verified, userTrips)
 
   // declare navigate so we can use it as a hook in useEffect
-  const navigate = useNavigate();
-    useEffect(() => {
-      const goToMainPage = () => navigate(('/main/searchTrips'), {state: { verified, userTrips, username}});
-      const goToError = () => navigate(('/error'));
-      if (verified === true){ goToMainPage()}
-      if (verified === false){ goToError()}
-    }, [verified]);
+  // const navigate = useNavigate();
+  //   useEffect(() => {
+  //     const goToMainPage = () => navigate(('/main/searchTrips'), {state: { verified, userTrips, username}});
+  //     const goToError = () => navigate(('/error'));
+  //     if (verified === true){ goToMainPage()}
+  //     if (verified === false){ goToError()}
+  //   }, [verified]);
 
   return (
     <section className="loginSection">
