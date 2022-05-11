@@ -6,7 +6,7 @@ function SearchTrips() {
   const [searchResults, setSearchResults] = useState([]);
   function searchData() {
        // WHAT IS THEIR ROUTE??
-    fetch('/db/api/getlocation', {
+    fetch('/api/getlocation', {
       method: 'POST',
       headers: {
         'Content-Type': 'Application/JSON',
@@ -29,7 +29,16 @@ function SearchTrips() {
   // console.log('searchResults outside of promisechain', searchResults)
 
   let tripCardsSearch;
-  const location = useLocation();
+  const _location = useLocation();
+  // Huge workaround
+  let state = {..._location.state,
+               userTrips:[]}
+  
+  let location = {
+                  ..._location,
+                  state
+                  };
+  
   console.log(location);
 
   //useEffect = useless (don't even try it here, you'll be disappointed)

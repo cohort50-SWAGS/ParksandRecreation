@@ -1,7 +1,7 @@
 // create navbar component from react-bootstrap
 import React from 'react';
 import { Navbar, Container, Nav } from 'react-bootstrap'
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function NavigationBar(props) {
     return (
@@ -11,8 +11,9 @@ function NavigationBar(props) {
             <Navbar.Toggle aria-controls='responsive-navbar-nav' />
         <Navbar.Collapse id='responsive-navbar-nav'>
             <Nav className="me-auto">
-                <Nav.Link href='main/searchTrips'>Search Trips</Nav.Link>
-                <Nav.Link href='main/SaveTrips'>Saved Trips</Nav.Link>
+            <Link style={{color: 'white', paddingRight: '10px', textDecoration: 'none'}} to='searchTrips'>Search Trips</ Link>
+            {/* <Nav.Link as={NavLink} to="/bills">Dividas</Nav.Link> */}
+              <Link style={{color: 'white', paddingRight: '10px', textDecoration: 'none'}} to='saveTrips'>Saved Trips</ Link> 
             </Nav>
             </ Navbar.Collapse>
         </Container>

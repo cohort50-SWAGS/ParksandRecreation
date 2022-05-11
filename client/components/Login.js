@@ -17,7 +17,7 @@ function Login(props) {
   // Modularize Functions into componentsHelpers Folder - LoginHelper
   function createUser() {
 
-    fetch('/db/add', {
+    fetch('/addUser', {
       method: 'POST',
       headers: {
         'Content-Type': 'Application/JSON',
@@ -29,10 +29,12 @@ function Login(props) {
     })
         .then((resp) => resp.json())
         .then((data) => {
+          console.log('Create User Response', data)
       // update our state with the hooks we defined earlier
       setUserTrips(data.tripsArray)    
       setUsername(document.querySelector('#Username').value)
       setVerified(data.verified)
+      window.localStorage.setItem('username', document.querySelector('#Username').value)
       })
         .catch((err) =>
           console.log('Login Page: createUser: ERROR: ')
@@ -42,7 +44,7 @@ function Login(props) {
 
   function loginUser() {
 // query our databse to see if their username and password is correct
-    fetch('/db/login', {
+    fetch('/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'Application/JSON',
@@ -54,10 +56,14 @@ function Login(props) {
     })
     .then((resp) => resp.json())
     .then((data) => {
+      console.log('Login User Response', data)
       // update our state with the hooks we defined earlier
       setUserTrips(data.tripsArray);
       setUsername(document.querySelector('#Username').value);
       setVerified(data.verified);
+
+      // Set Username in Local Storage
+      window.localStorage.setItem('username', document.querySelector('#Username').value)
       })
     .catch((err) => {
       console.log('Login page: user not found', err)
