@@ -1,3 +1,4 @@
+// Clean up the unused imports
 import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate, Link, withRouter } from 'react-router-dom';
@@ -7,11 +8,13 @@ import Main from './Main.js';
 function Login(props) {
 
   // establish our state
+  // Move this State into Top Level 
   const [verified, setVerified] = useState();
   const [userTrips, setUserTrips] = useState([]);
   const [username, setUsername] = useState('default');
 
   // function activated when user clicks "create user"
+  // Modularize Functions into componentsHelpers Folder - LoginHelper
   function createUser() {
 
     fetch('/db/add', {
@@ -32,7 +35,8 @@ function Login(props) {
       setVerified(data.verified)
       })
         .catch((err) =>
-          console.log('Login Page: createUser: ERROR: ', err)
+          console.log('Login Page: createUser: ERROR: ')
+          // console.log('Login Page: createUser: ERROR: ', err.message)
     );
   };
 
@@ -65,7 +69,7 @@ function Login(props) {
   // declare navigate so we can use it as a hook in useEffect
   const navigate = useNavigate();
     useEffect(() => {
-      const goToMainPage = () => navigate(('/main'), {state: { verified, userTrips, username}});
+      const goToMainPage = () => navigate(('/main/searchTrips'), {state: { verified, userTrips, username}});
       const goToError = () => navigate(('/error'));
       if (verified === true){ goToMainPage()}
       if (verified === false){ goToError()}

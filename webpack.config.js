@@ -10,15 +10,13 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'dev server app',
       template: './index.html',
+      base: '/'
     }),
   ],
   devServer: {
-    static: {
-      directory: './dist/index.html',
-    },
     port: 8080,
+    historyApiFallback: true,
     proxy: {
       '/db/**': {
         target: 'http://localhost:3000',

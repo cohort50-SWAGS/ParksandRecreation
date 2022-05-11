@@ -27,7 +27,7 @@ apiController.getByLocation = (req, res, next) => {
     method: 'GET',
     headers: {
       'accept': 'application/json',
-      "apikey" : 'apkikeyhere'
+      "apikey" : 'a83c6bff-4a84-4a8e-8d57-2bbfdf432598'
     }
   })
   .then (result => {
@@ -66,7 +66,7 @@ apiController.getRecAreaByID = async (req, res, next) => {
       method: 'GET',
       headers: {
         'accept': 'application/json',
-        "apikey" : 'apikeyhere'
+        "apikey" : 'a83c6bff-4a84-4a8e-8d57-2bbfdf432598'
       }
     })
     // .then (result => // console.log("result.data:", result.data)
