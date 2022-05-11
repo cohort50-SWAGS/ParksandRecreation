@@ -11,7 +11,16 @@ import React, {useState, useEffect} from 'react';
 //   );
 // });
 
+// On Mount or Change
+  // Update our saved Trips State
+  // Render Trips from State
+  
 function SaveTrips() {
+  const [] = useStat
+  useEffect(() => {
+
+    
+  }
   return (
     <h1>Here is saved trips</h1> 
   );

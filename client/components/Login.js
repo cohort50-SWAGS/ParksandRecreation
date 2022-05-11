@@ -60,16 +60,6 @@ function Login(props) {
       })
   };
 
-
-  // declare navigate so we can use it as a hook in useEffect
-  // const navigate = useNavigate();
-  //   useEffect(() => {
-  //     const goToMainPage = () => navigate(('/main/searchTrips'), {state: { verified, userTrips, username}});
-  //     const goToError = () => navigate(('/error'));
-  //     if (verified === true){ goToMainPage()}
-  //     if (verified === false){ goToError()}
-  //   }, [verified]);
-
   return (
     <section className="loginSection">
       
