@@ -17,6 +17,19 @@ const apiController = {};
     // Headers:
         // accept: application/json
         // apikey: d7093dcf-3639-48da-93b7-24ba26963235
+// const apiKey = 'a83c6bff-4a84-4a8e-8d57-2bbfdf432598';
+
+apiController.getCityName = (req, res, next) => {
+  const { latitude, longitude } = req.body;
+
+  // https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=YOUR_API_KEY
+  axios.get(`https://api.geoapify.com/v1/geocode/reverse?lat=${latitude}&lon=${longitude}&apiKey=785a1070f1454d9abdb957127825aac6`)
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(err => next({err}));
+
+  return next();
+};
 
 apiController.getByLocation = (req, res, next) => {
   const place = req.body.location // EX -> Los Angeles -> los%20angeles
@@ -27,7 +40,7 @@ apiController.getByLocation = (req, res, next) => {
     method: 'GET',
     headers: {
       'accept': 'application/json',
-      "apikey" : 'apkikeyhere'
+      "apikey" : 'a83c6bff-4a84-4a8e-8d57-2bbfdf432598'
     }
   })
   .then (result => {
@@ -66,7 +79,7 @@ apiController.getRecAreaByID = async (req, res, next) => {
       method: 'GET',
       headers: {
         'accept': 'application/json',
-        "apikey" : 'apikeyhere'
+        "apikey" : 'a83c6bff-4a84-4a8e-8d57-2bbfdf432598'
       }
     })
     // .then (result => // console.log("result.data:", result.data)
