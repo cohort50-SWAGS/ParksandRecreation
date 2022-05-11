@@ -3,7 +3,8 @@ const apiController = require('../controllers/api.js');
 
 const router = express.Router();
 
-router.post('/getlocation',
+router.post('/getInput',
+    apiController.getInput, 
     apiController.getByLocation,
     apiController.getRecAreaByID,
     (req, res) => {
@@ -11,7 +12,12 @@ router.post('/getlocation',
     }
 );
 
-router.post('/getCity', apiController.getCityName, (req, res) => {
-    res.status(200).json(res.locals.location)
-})
+router.post('/getCurrent', 
+    apiController.getCityName,
+    apiController.getByLocation,
+    apiController.getRecAreaByID,
+    (req, res) => {
+        res.status(200).json(res.locals.recAreas)
+    }
+);
 module.exports = router;

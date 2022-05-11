@@ -11,29 +11,38 @@ const axios = require('axios').default;
 // QUERY CHAIN
 // Rec Area Addresses by City -> Rec Area by ID -> Facilities/Activities/Events/ Etc.
 
-const apiController = {};
-
 // get request structure: https://ridb.recreation.gov/api/v1/recareaaddresses?query=los%20angeles&limit=50&offset=0
     // Headers:
         // accept: application/json
         // apikey: d7093dcf-3639-48da-93b7-24ba26963235
 // const apiKey = 'a83c6bff-4a84-4a8e-8d57-2bbfdf432598';
 
-apiController.getCityName = (req, res, next) => {
+const apiController = {};
+
+
+apiController.getCityName = async (req, res, next) => {
   const { latitude, longitude } = req.body;
 
-  // https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=YOUR_API_KEY
-  axios.get(`https://api.geoapify.com/v1/geocode/reverse?lat=${latitude}&lon=${longitude}&apiKey=785a1070f1454d9abdb957127825aac6`)
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(err => next({err}));
-
-  return next();
+  const result = await axios.get(`https://api.geoapify.com/v1/geocode/reverse?lat=${latitude}&lon=${longitude}&apiKey=785a1070f1454d9abdb957127825aac6`);
+    try {
+      res.locals.city = result.data.features[0].properties.city;
+      return next();
+    }
+    catch {
+      return next({err});
+    }
 };
 
+apiController.getInput = (req, res, next) => {
+  res.locals.city = req.body.location;
+  return next();
+}
+
 apiController.getByLocation = (req, res, next) => {
-  const place = req.body.location // EX -> Los Angeles -> los%20angeles
+  console.log("in getByLocation:", res.locals.city);
+  const place = res.locals.city // EX -> Los Angeles -> los%20angeles
   //function to manipulate place into a url readable string
+
   const encodedPlace = encodeURIComponent((place).toLowerCase())
 
   axios.get(`https://ridb.recreation.gov/api/v1/recareaaddresses?query=${encodedPlace}&limit=30`, {
@@ -61,18 +70,15 @@ apiController.getByLocation = (req, res, next) => {
   .catch (err => {
     return next({err})
   })
- 
- 
- 
 }
 
 // GET MIDDLEWARE TO GRAB REC AREA BY ID
 
 apiController.getRecAreaByID = async (req, res, next) => {
+  const trim = (string) => string.split('.').slice(0, 2).join('.') + '.';
 
-  const idArray = res.locals.idArray
-  console.log("idArray:", idArray)
-  //const recArray = []; 
+  const idArray = res.locals.idArray;
+  console.log("idArray:", idArray);
 
   const recArray = await Promise.all(idArray.map( async id => {
     const result = await axios.get(`https://ridb.recreation.gov/api/v1/recareas/${id}`, {
@@ -82,23 +88,22 @@ apiController.getRecAreaByID = async (req, res, next) => {
         "apikey" : 'a83c6bff-4a84-4a8e-8d57-2bbfdf432598'
       }
     })
-    // .then (result => // console.log("result.data:", result.data)
-      // const recArray = [];
-      // result.data.forEach(obj => recArray.push(obj.data))
-      // USED TO FILER REC AREA INFORMATION
-      return {
-        recAreaName: result.data.RecAreaName,
-        recAreaDescription: result.data.RecAreaDescription,
-        recAreaFee: result.data.RecAreaFeeDescription,
-        recAreaDirections: result.data.RecAreaDirections
-      }
-      // console.log("recObject:", recObject)
-    
+    // console.log(result.data)
+    return {
+      recAreaName: result.data.RecAreaName,
+      recAreaDescription: trim(result.data.RecAreaDescription),
+      recAreaFee: result.data.RecAreaFeeDescription,
+      recAreaDirections: result.data.RecAreaDirections, 
+      recAreaPhone : result.data.RecAreaPhone, 
+      recAreaEmail : result.data.RecAreaEmail,
+      keywords : result.data.Keywords
+    }
   }))
   res.locals.recAreas = recArray
   // next();
-  console.log("recArray:", recArray);
-  next()
+  // console.log("recArray:", recArray);
+  return next()
 }
+
 
 module.exports = apiController;
