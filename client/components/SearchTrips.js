@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import TripCard from './TripCard'
-import { Button } from 'react-bootstrap'
 
 function SearchTrips() {
   const [ searchResults, setSearchResults ] = useState([]);
+  const [ noResults, setNoResults ] = useState(false);
 
   function searchData() {
     fetch('/api/getInput', {
@@ -28,7 +28,10 @@ function SearchTrips() {
         body: JSON.stringify({latitude, longitude})
       })
         .then(response => response.json())
-        .then(data => setSearchResults(data))
+        .then(data => {
+          setSearchResults(data)
+          if(!data.length) setNoResults(true);
+        })
         .catch(err => console.log(err));
 
       return;
@@ -51,6 +54,11 @@ function SearchTrips() {
       <TripCard key={i} info={eachResult}/>
     );
   });
+
+  let error = [];
+  if(noResults) {
+    error = <div>No parks in your city</div>
+  }
 
   return (
     <section className='mainSection'>
@@ -76,6 +84,7 @@ function SearchTrips() {
        onClick = {sendCurrLocation}>
          Current Location</button>
       </header>
+      { error }
       <div className='searchResultsContainer'>{searchResultsArray}</div>
     </section>
   );
