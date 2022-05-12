@@ -3,8 +3,8 @@ const dbController = {};
 
 dbController.addTrip = (req, res, next) => {
   const { username, trip } = req.body;
-
   User.updateOne({username: username}, { $push: {trips: trip}}, (err, user) => {
+    console.log('Add Trips Hit', user)
     if (err) return next({err});
     return next();
   })

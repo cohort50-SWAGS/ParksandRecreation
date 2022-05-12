@@ -10,22 +10,40 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'dev server app',
       template: './index.html',
+      base: '/'
     }),
   ],
+
+  // localhost:8080/main/savedSearches
+  // app.get('*', req,res => sendFile(index.html))
   devServer: {
-    static: {
-      directory: './dist/index.html',
-    },
     port: 8080,
+    historyApiFallback: true,
     proxy: {
-      '/db/**': {
+      // not main
+      '/api': {
+        target: 'http://localhost:3000',
+        secure: false,
+      },
+      '/db': {
+        target: 'http://localhost:3000',
+        secure: false,
+      },
+      '/addUser': {
+        target: 'http://localhost:3000',
+        secure: false,
+      },
+      '/login': {
         target: 'http://localhost:3000',
         secure: false,
       },
     },
   },
+// app.use('/api', apiRouter);
+// app.use('/db', dbRouter);
+// app.use('/login', loginRouter);
+// app.use('/addUser', addUserRouter);
 
   module: {
     rules: [

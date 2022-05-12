@@ -1,15 +1,18 @@
+@import "~bootstrap/scss/bootstrap";
+
 body {
-  display: flexbox;
-  background-image: url(./yosemite_bg.jpeg);
-  background-repeat: no-repeat;
-  background-size: cover;
+  /* display: flexbox; */
+  /* background-image: url(./yosemite_bg.jpeg); */
+  /* background-repeat: no-repeat; */
+  /* background-size: cover; */
   /* background-color: #1c1f2e; */
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  /* font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif; */
   color: white;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+  /* display: flex; */
+  /* flex-direction: row; */
+  /* justify-content: center; */
 }
+
 
 .loginSection {
   background-color: #caceb5;
@@ -20,6 +23,10 @@ body {
   height: 400px;
   width: 500px;
   border: 50px solid #2f3543;
+}
+
+button {
+  cursor: pointer;
 }
 
 .loginSection h2 {
@@ -35,6 +42,7 @@ body {
   width: 200px;
   margin: 20px;
   border: none;
+  cursor: pointer;
 }
 
 .loginSection .input {
@@ -111,13 +119,15 @@ body {
   justify-content: flex-start;
   /* align-items: center; */
 }
-.router{
+
+/* .router{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     align-content: center;
-}
+} */
+
 .mainSection {
   display: flex;
   flex-direction: column;
