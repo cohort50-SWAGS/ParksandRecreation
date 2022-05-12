@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import TripCard from './TripCard'
 
 function SearchTrips() {
-  const [searchResults, setSearchResults] = useState([]);
+  const [ searchResults, setSearchResults ] = useState([]);
   function searchData() {
     fetch('/api/getlocation', {
       method: 'POST',
