@@ -10,7 +10,7 @@
     "client-dev": "NODE_ENV=development webpack serve --open",
     "server-dev": "NODE_ENV=development nodemon server/server.js"
   },
-  "author": "SWAGS",
+  "author": "Vatos",
   "license": "ISC",
   "dependencies": {
     "@babel/core": "^7.17.10",
