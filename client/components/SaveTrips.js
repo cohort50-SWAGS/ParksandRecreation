@@ -15,15 +15,21 @@ import React, {useState, useEffect} from 'react';
   // Update our saved Trips State
   // Render Trips from State
   
-function SaveTrips() {
-  const [] = useStat
-  useEffect(() => {
+// function SaveTrips() {
+//   const [] = useStat
+//   useEffect(() => {
 
     
-  }
+//   }
+//   return (
+//     <h1>Here is saved trips</h1> 
+// //   );
+// }
+
+const SaveTrips = () => {
   return (
-    <h1>Here is saved trips</h1> 
-  );
-}
+    <h1>This project sucks</h1>
+  )
+};
 
 export default SaveTrips;
