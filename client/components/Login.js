@@ -1,22 +1,12 @@
 // Clean up the unused imports
-import React, {useState, useEffect} from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate, Link, withRouter } from 'react-router-dom';
-import Main from './Main.js';
+import React from 'react'
+import { useNavigate } from 'react-router-dom';
 
 
 // component for the whole login page
 function Login(props) {
   let navigate = useNavigate();
 
-  // establish our state
-  // Move this State into Top Level 
-  const [verified, setVerified] = useState();
-  const [userTrips, setUserTrips] = useState([]);
-  const [username, setUsername] = useState('default');
-
-  // function activated when user clicks "create user"
-  // Modularize Functions into componentsHelpers Folder - LoginHelper
   function createUser() {
 
     fetch('/addUser', {

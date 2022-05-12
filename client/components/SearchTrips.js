@@ -4,7 +4,7 @@ import TripCard from './TripCard'
 function SearchTrips() {
   const [searchResults, setSearchResults] = useState([]);
   function searchData() {
-    fetch('/api/getlocation', {
+    fetch('/api/getInput', {
       method: 'POST',
       headers: {'Content-Type': 'Application/JSON'},
       body: JSON.stringify({ location: document.querySelector('#SearchBarCity').value})

@@ -13,7 +13,7 @@ function NavigationBar(props) {
             <Nav className="me-auto">
             <Link style={{color: 'white', paddingRight: '10px', textDecoration: 'none'}} to='searchTrips'>Search Trips</ Link>
             {/* <Nav.Link as={NavLink} to="/bills">Dividas</Nav.Link> */}
-              <Link style={{color: 'white', paddingRight: '10px', textDecoration: 'none'}} to='saveTrips'>Saved Trips</ Link> 
+              <Link style={{color: 'white', paddingRight: '10px', textDecoration: 'none'}} to='savedTrips'>Saved Trips</ Link> 
             </Nav>
             </ Navbar.Collapse>
         </Container>

@@ -5,7 +5,7 @@ import Main from './Main.js';
 import Error from './Error.js';
 import '../styling/style.css';
 import SearchTrips from './SearchTrips.js';
-import SaveTrips from './SaveTrips.js'
+import SavedTrips from './SavedTrips.js'
 
 const App = (props) => {
   return (
@@ -18,7 +18,7 @@ const App = (props) => {
             <Route path="/main/" element={<Main />}>
               <Route path="searchTrips" element={<SearchTrips/>} />
               {/* Have a Saved List/Likes Page nested in Main */}``
-              <Route path="saveTrips" element={<SaveTrips/>} />
+              <Route path="savedTrips" element={<SavedTrips/>} />
             </Route>
             <Route path='/error' element={<Error/>} />
             {/* <Route path="/floppyseal" element={<h1></h1>} >
