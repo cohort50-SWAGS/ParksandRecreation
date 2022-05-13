@@ -57,7 +57,7 @@ const TripCard = ({ info, savedTrip, savedTrips, setSavedTrips, index }) => {
   textStyle['text-overflow'] = 'ellipsis'
 
   return (
-    <Col xs={12} sm={6} md={4} lg={3} xl={3} draggable="true">
+    <Col sm={12} md={6} lg={4} xl={3} draggable="true">
       <Card className="text-center trip-card mt-4">
         {/* <Card.Header>{recAreaName}</Card.Header> */}
         <Card.Body>
