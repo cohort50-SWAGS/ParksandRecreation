@@ -1,7 +1,10 @@
 import React, {useState, useEffect} from 'react';
+import { Container, Row, Button } from 'react-bootstrap';
 import TripCard from './TripCard'
+import checkLogin from './CheckLogin';
 
 function SearchTrips() {
+  checkLogin();
   const [ searchResults, setSearchResults ] = useState([]);
   const [ noResults, setNoResults ] = useState(false);
 
@@ -63,29 +66,36 @@ function SearchTrips() {
   return (
     <section className='mainSection'>
         <header className='searchHeader'>
-          <h2> Search! </h2>
+          <h2> Search For Trips! </h2>
           <input
             className="inputField"
             id="SearchBarCity"
             type="text"
             placeholder="City"
           ></input>
-            <button
+            <Button 
+            className='mx-3 px-3'
+            variant='outline-dark'
             type="button"
             value="Search"
             onClick={searchData}
           >
             Search City
-          </button>
+          </Button>
           
-       <button 
+       <Button 
        type="button" 
-       class="btn btn-danger"
+      //  className="btn-danger"
+      variant='outline-success'
        onClick = {sendCurrLocation}>
-         Current Location</button>
+         Current Location</Button>
       </header>
       { error }
-      <div className='searchResultsContainer'>{searchResultsArray}</div>
+      <Container >
+        <Row>
+          {searchResultsArray}
+        </Row>
+      </Container>
     </section>
   );
 }

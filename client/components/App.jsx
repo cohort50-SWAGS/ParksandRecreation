@@ -21,9 +21,7 @@ const App = (props) => {
               <Route path="savedTrips" element={<SavedTrips/>} />
             </Route>
             <Route path='/error' element={<Error/>} />
-            {/* <Route path="/floppyseal" element={<h1></h1>} >
-                <Route path="avi" element={<Error />} />
-            </Route> */}
+            <Route path="*" element={<Error/>} />
           </Routes>
         </Router>
       </main>
@@ -31,10 +29,19 @@ const App = (props) => {
   );
 };
 
-// function Router = (props) {
-//   return <div>
-//     props.children
-//   </div>
-// }
+//       <Routes>
+//         <Route element={<Layout />}>
+//           <Route path="/" element={<PublicPage />} />
+//           <Route path="/login" element={<LoginPage />} />
+//           <Route
+//             path="/protected"
+//             element={
+//               <RequireAuth>
+//                 <ProtectedPage />
+//               </RequireAuth>
+//             }
+//           />
+//         </Route>
+//       </Routes>
 
 export default App;

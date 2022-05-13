@@ -1,6 +1,7 @@
 @import "~bootstrap/scss/bootstrap";
 
 body {
+  background-color: hsl(0, 0%, 94%);
   /* display: flexbox; */
   /* background-image: url(./yosemite_bg.jpeg); */
   /* background-repeat: no-repeat; */
@@ -57,14 +58,19 @@ button {
   border: none;
 }
 
+
 .searchHeader {
-  background-color: #caceb5;
+  padding-top: 80px;
+  background-color: #EFEFEF;
   color: #1c1f2e;
   margin: 0px 300px;
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* align-items: center; */
   text-align: center;
-  justify-content: center;
-  height: 100px;
-  width: 800px;
+  /* justify-content: center; */
+  height: 50vh;
+  width: 80vw;
   border: 10px solid rgba(0, 0, 0, 0.5);
 }
 
@@ -72,6 +78,8 @@ button {
   height: 30px;
   width: 350px;
   border: none;
+  padding: 10px;
+  margin:  10px;
 }
 
 .loginSection input {
