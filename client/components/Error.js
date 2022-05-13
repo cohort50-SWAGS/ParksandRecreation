@@ -5,13 +5,7 @@ function Error() {
 
   return (
     <div>
-      <iframe
-        src="https://www.youtube.com/watch?v=aswgTPlzazo&ab_channel=HigherQualityUploads"
-        frameborder="0"
-        allow="autoplay; encrypted-media"
-        allowfullscreen
-        title="video"
-      />{" "}
+     <p className='m-5'>404 - Page Not Found</p>
     </div>
   );
 }
