@@ -2,11 +2,12 @@ import React, {useState, useLocation} from 'react';
 import {Card, Button, Accordion, Col} from 'react-bootstrap';
 import { propTypes } from 'react-bootstrap/esm/Image';
 
-const TripCard = ({ info }) => {
+const TripCard = ({ info, savedTrip, savedTrips, setSavedTrips, index }) => {
     
     let username = localStorage.getItem('username');
     console.log(username);
-    const { recAreaName, recAreaDescription, recAreaFee, recAreaDirections } = info;
+    let { recAreaName, recAreaDescription, recAreaFee, recAreaDirections } = info;
+    if(!recAreaDescription) recAreaDescription = '';
     
     const addToUserTrips = (e) => {
     fetch('/db/addtrip', {
@@ -23,6 +24,28 @@ const TripCard = ({ info }) => {
     .then((data) => {
         e.target.innerText = 'Trip Saved';
         e.target.class = e.target.className = 'mt-3 btn btn-success'
+    })
+    .catch((err) => console.log('Add Card: ERROR: ', err));
+  };
+
+  const deleteTrip = (e) => {
+    fetch('/db/', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'Application/JSON'
+      },
+      body: JSON.stringify({
+        username: username, 
+        trip: info 
+    })
+    })
+    .then((res) => res.json())
+    .then((data) => {
+        console.log(data);
+        let updatedSavedTrips = [...savedTrips];
+        updatedSavedTrips.splice(index, 1);
+        console.log(updatedSavedTrips)
+        setSavedTrips(updatedSavedTrips);
     })
     .catch((err) => console.log('Add Card: ERROR: ', err));
   };
@@ -52,7 +75,9 @@ const TripCard = ({ info }) => {
             </Accordion.Body>
           </Accordion.Item>
         </Accordion>
-        <Button className='mt-3' variant="primary" onClick={addToUserTrips}>Add Trip</Button>
+        {savedTrip ?
+          <Button className='mt-3' variant="primary" onClick={deleteTrip}>Delete Trip</Button>
+         : <Button className='mt-3' variant="primary" onClick={addToUserTrips}>Add Trip</Button>}
         </Card.Body>
       </Card>
     </Col>

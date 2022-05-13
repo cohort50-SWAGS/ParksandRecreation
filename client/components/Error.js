@@ -2,13 +2,17 @@ import React, {useState, useEffect} from 'react';
 import { Redirect, useLocation } from 'react-router-dom';
 
 function Error() {
-  
 
   return (
-      <div>
-        <h1>DON'T BE SUSPICIOUS</h1>
-        {/* iteration team please add gif */}
-     </div>
+    <div>
+      <iframe
+        src="https://www.youtube.com/watch?v=aswgTPlzazo&ab_channel=HigherQualityUploads"
+        frameborder="0"
+        allow="autoplay; encrypted-media"
+        allowfullscreen
+        title="video"
+      />{" "}
+    </div>
   );
 }
 

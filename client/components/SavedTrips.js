@@ -3,6 +3,7 @@ import { Container, Row, Button } from 'react-bootstrap';
 // import { Redirect, useLocation } from 'react-router-dom';
 import TripCard from './TripCard';
 import checkLogin from './CheckLogin';
+import 'regenerator-runtime/runtime';
 
 // const tripsArray = location.state.userTrips.map((eachSave, i) => {
 //   return (
@@ -31,33 +32,37 @@ function SavedTrips() {
   //     .catch(err => console.log('Error getting user trips'))
   //   }
 
-    // useEffect(() => {
-    //   const fetchData = async () => {
-    //     const data = await fetch(`/db/gettrips/${userName}`)
-    //     const json = await data.json();
+    useEffect(() => {
+      const fetchData = async () => {
+        const data = await fetch(`/db/gettrips/${userName}`)
+        const json = await data.json();
 
-    //     setSavedTrips(json);
-    //   };
+        setSavedTrips(json);
+      };
 
-    //   fetchData()
-    //     .catch(console.log('Error getting user trips'));
-    // }, [])
+      fetchData()
+        .catch(console.log('Error getting user trips'));
+    }, [])
 
     
-      // allSavedTrips = data.map((eachResult, i) => {
+    // allSavedTrips = data.map((eachResult, i) => {
         
-    // const tripsArray = savedTrips.map((eachResult, i) => {
-    //   return (
-    //     <TripCard key={i} info={eachResult}/>
-    //   )
-    // })
+    const tripsArray = savedTrips.map((eachResult, i) => {
+      return (
+        <TripCard key={i} info={eachResult} savedTrip={true} savedTrips={savedTrips} setSavedTrips={setSavedTrips} index={i} />
+      )
+    })
 
   return (
     <div>
-      {/* {tripsArray} */}
-      <h1>Saved Trips Cards Here!</h1>
+      <Container >
+        <Row>
+          {tripsArray}
+        </Row>
+      </Container>
+      
     </div>
   )
 }
 
-export default SavedTrips;
+export default SavedTrips
